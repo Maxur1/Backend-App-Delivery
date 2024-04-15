@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://google.cl">
-    <img src="https://i.imgur.com/enmitH6.png" alt="Logo" >
+    <img src="https://i.imgur.com/aFXNOwu.png" alt="Logo" >
   </a>
 
   <h3 align="center">Sabor Veloz - Maestros Solucionadores.</h3>
