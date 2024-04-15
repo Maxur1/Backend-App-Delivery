@@ -30,8 +30,7 @@ El proyecto esta hecho en base a [NODE.JS](https://nodejs.org/en), es necesario 
 
 Es necesario tener instaladas estas librerías:
 ```bash
-npm install bcrypjs cors dotenv express express-validator 
-express-fileupload jsonwebtoken morgan mysql sequelize sequelize-cli
+npm install bcrypjs cors dotenv express express-validator express-fileupload jsonwebtoken morgan mysql sequelize sequelize-cli
 ```
 
 ### Pasos de Ejecución

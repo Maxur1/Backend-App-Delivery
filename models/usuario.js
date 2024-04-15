@@ -14,28 +14,24 @@ class Usuario extends Model {
 Usuario.init({
 
     nombre: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     apellido: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     correo: {
         type: DataTypes.STRING,
-        allowNull: false
+        unique: true
     },
     telefono: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     contrasenia: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
     imagen: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize: databaseConexion,
@@ -44,8 +40,8 @@ Usuario.init({
 Usuario.Rol = Usuario.belongsTo(require ('./rol'), {foreignKey: 'rol_id'});
 
 Usuario.prototype.toJSON = function () {
+    const usuario = this.get();
     // Destructura el objeto, en este caso, Usuario
-    const { contrasenia, ...usuario } = this.get();
     // Elimina la contraseña del objeto
     delete usuario.contrasenia;
     // incluimos el atributo rol_id

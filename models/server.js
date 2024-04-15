@@ -55,6 +55,7 @@ class Server {
     }
 
     rutas() {
+        this.app.use(this.paths.auth, require('../routes/rutaAuth'));
         this.app.use(this.paths.usuario, require('../routes/rutaUsuario'));
     }
 

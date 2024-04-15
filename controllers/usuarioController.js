@@ -1,43 +1,39 @@
+const { request, response } = require("express");
+
 const Usuario = require('../models/usuario');
 const Rol  = require('../models/rol');
 const generarJWT = require('../utils/generar-jwt');
-const bcrypt = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { validarCampos } = require('../middlewares/validar-campo');
 
-const registrarUsuario = async (req, res) => {
 
+// Metodo para buscar un usuario por su id
+const buscarUsuarioPorId = async (req, res) => {
     try {
-        const datosUsuario = req.body;
+        const id = req.params.id;
+        const usuario = await Usuario.findOne({ where: { id } });
 
-        // Obtenemos el rol del usuario
-        const rol = await Rol.findOne({ where: { nombre: 'CLIENTE' } });
-        
-        // Crea el usuario en la base de datos
-        const usuario = new Usuario(datosUsuario);
-        const salt = bcrypt.genSaltSync();
-        usuario.contrasenia = bcrypt.hashSync(datosUsuario.contrasenia, salt);
-        await usuario.save();
+        if (!usuario) {
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado'
+            });
+        }
 
-        // Crea el token
-        const token = await generarJWT(usuario.id);
-
-        const { nombre, apellido, telefono, correo } = usuario;
-        datosUsuario.session_token = token;
-
-        return res.status(201).json({
+        return res.status(200).json({
             success: true,
-            data: datosUsuario,
-            message: `Usuario ${nombre} ${apellido} registrado correctamente`
+            data: usuario,
+            message: 'Usuario encontrado'
         });
 
     } catch (error) {
         res.status(500).send({
-            message: 'Error al registrar el usuario',
+            message: 'Error al buscar el usuario',
             error
         });
     }
 }
-
 module.exports = {
-    registrarUsuario
+    buscarUsuarioPorId
 }
