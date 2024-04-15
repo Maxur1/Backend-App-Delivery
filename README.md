@@ -5,7 +5,7 @@
     <img src="https://i.imgur.com/263b58v.png" alt="Logo" >
   </a>
 
-  <h3 align="center">Sabor Veloz - Maestros Solucionadores</h3>
+  <h3 align="center">Sabor Veloz - Maestros Solucionadores.</h3>
 
   <p align="center">
     Aplicación de delivery "Sabor Veloz".
