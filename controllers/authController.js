@@ -32,13 +32,14 @@ const login = async (req, res) => {
             email: user.email,
             phone: user.phone,
             imagen: user.imagen,
-            rol_id: user.rol_id,
-            token: token
+            rol_id: JSON.parse(user.rol_id),
+            session_token: token
+
         }
         return res.status(200).json({
             success: true,
-            token,
-            message: 'Usuario ${user.name} logueado correctamente',
+            data:Userdata,
+            message: 'Usuario logueado correctamente',
 
         });
 
@@ -66,7 +67,7 @@ const register = async (req = request, res = response) => {
         return res.status(200).json({
             success: true,
             data: Userdata,
-            message: `Usuario ${user.name} ${user.lastname} registrado correctamente`
+            message: `Usuario registrado correctamente`
 
         });
     } catch (error) {
