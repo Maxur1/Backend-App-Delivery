@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
-const databaseConexion = require('../database/conexion');
-const Usuario = require('../models/usuario');
+const dbConnect = require('../database/connection');
+const User = require('../models/user');
 const Rol = require('../models/rol');
 
 class Server {
@@ -13,27 +13,27 @@ class Server {
         
         this.paths = {
             auth: '/api/auth',
-            usuario: '/api/usuario',
+            user: '/api/user',
             rol: '/api/rol'
         }
 
         // Método para conectar con la base de datos
-        this.conexionDatabase();
+        this.dbConnection();
 
         // Metodo para configurar los middlewares
         this.middlewares();
         
         // Metodo para configurar las rutas
-        this.rutas();
+        this.routes();
     }
 
     // Método para conectar con la base de datos
-    async conexionDatabase() {
+    async dbConnection() {
         try {
-            await databaseConexion.authenticate();
+            await dbConnect.authenticate();
             //  Evita que las tablas sean creadas si no existe la base de datos
             await Rol.sync({ force: false });
-            await Usuario.sync({ force: false });
+            await User.sync({ force: false });
             console.log('Base de datos conectada correctamente');
         } catch (error) {
             console.error('Error al conectar con la base de datos', error);
@@ -54,9 +54,9 @@ class Server {
         this.app.use(cors());
     }
 
-    rutas() {
-        this.app.use(this.paths.auth, require('../routes/rutaAuth'));
-        this.app.use(this.paths.usuario, require('../routes/rutaUsuario'));
+    routes() {
+        this.app.use(this.paths.auth, require('../routes/authRoute'));
+        this.app.use(this.paths.user, require('../routes/userRoute'));
     }
 
     listen() {

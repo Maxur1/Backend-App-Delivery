@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require('sequelize');
-const databaseConexion = require('../database/conexion');
+const dbConnect = require('../database/connection');
 
 class Rol extends Model {
     static id;
-    static nombre;
+    static name;
 }
 
 Rol.init({
@@ -12,12 +12,12 @@ Rol.init({
         primaryKey: true,
         autoIncrement: true
     },
-    nombre: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
-    sequelize: databaseConexion,
+    sequelize: dbConnect,
     modelName: 'Rol'
 });
 
